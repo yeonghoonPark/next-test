@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function SignUpPage() {
+  const router = useRouter();
+
   const [nameVal, setNameVal] = useState("");
   const [emailVal, setEmailVal] = useState("");
   const [passwordVal, setPasswordVal] = useState("");
@@ -44,20 +47,39 @@ export default function SignUpPage() {
     }
   };
 
-  const onHandleBtn = () => {
+  const onHandleBtn = (e) => {
+    e.preventDefault();
     checkEmptyString();
     checkPassword();
+
+    fetch("/api/signup/insert", {
+      method: "POST",
+      body: JSON.stringify({
+        name: nameVal,
+        email: emailVal,
+        password: passwordVal,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.success === false) {
+          return alert(res.data);
+        }
+
+        alert(res.data);
+        router.push("/");
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
     <div className='container sign-up-page'>
       <h1 className='page-title'>SignUp</h1>
-      <form action='/api/signup/insert' method='POST'>
+      <form onSubmit={onHandleBtn}>
         <div>
           <label htmlFor='name'>Name</label>
           <input
             id='name'
-            name='name'
             type='text'
             value={nameVal}
             ref={nameRef}
@@ -69,7 +91,6 @@ export default function SignUpPage() {
           <label htmlFor='email'>Email</label>
           <input
             id='email'
-            name='email'
             type='email'
             value={emailVal}
             ref={emailRef}
@@ -81,7 +102,6 @@ export default function SignUpPage() {
           <label htmlFor='password'>Password</label>
           <input
             id='password'
-            name='password'
             type='password'
             value={passwordVal}
             ref={passwordRef}
@@ -99,7 +119,7 @@ export default function SignUpPage() {
             onChange={(e) => setConfirmPasswordVal(e.target.value)}
           />
         </div>
-        <button className='btn-large' type='submit' onClick={onHandleBtn}>
+        <button className='btn-large' type='submit' onSubmit={onHandleBtn}>
           Sign Up
         </button>
       </form>
