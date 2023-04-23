@@ -13,11 +13,11 @@ export default async function Header() {
         <div className='left-menu'>
           <LinkBtn href={"/"}>Logo</LinkBtn>
           <LinkBtn href={"/"}>Notice</LinkBtn>
-          {session && <LinkBtn href={"/"}>Write</LinkBtn>}
+          {session && <LinkBtn href={"/write"}>Write</LinkBtn>}
         </div>
         <div className='right-menu'>
           <SignBtn session={session} />
-          <LinkBtn href={"/signup"}>SignUp</LinkBtn>
+          <LinkBtn href='/signup'>SignUp</LinkBtn>
         </div>
       </nav>
     </header>
