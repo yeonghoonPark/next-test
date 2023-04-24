@@ -20,7 +20,8 @@ export default function SignUpPage() {
     nameRef.current.focus();
   }, []);
 
-  const checkEmptyString = () => {
+  const onHandleBtn = (e) => {
+    e.preventDefault();
     if (nameVal === "") {
       alert("이름을 입력해주세요.");
       nameRef.current.focus();
@@ -37,20 +38,12 @@ export default function SignUpPage() {
       alert("비밀번호를 확인을 입력해주세요");
       confirmPassordRef.current.focus();
     }
-  };
 
-  const checkPassword = () => {
     if (passwordVal !== confirmPasswordVal) {
       alert("비밀번호와 비밀번호 확인이 일치하지 않습니다, 확인해주세요.");
       passwordRef.current.focus();
       return;
     }
-  };
-
-  const onHandleBtn = (e) => {
-    e.preventDefault();
-    checkEmptyString();
-    checkPassword();
 
     fetch("/api/signup/insert", {
       method: "POST",

@@ -5,6 +5,14 @@ import { useRouter } from "next/navigation";
 export default function DetailCard({ data }) {
   const router = useRouter();
 
+  const onHandleEditBtn = (_id) => {
+    router.push(`/edit/${_id}`);
+  };
+
+  const onHandleDeleteBtn = () => {
+    console.log("[onHandleDeleteBtn]");
+  };
+
   const onHandleBackBtn = () => {
     router.back(-1);
   };
@@ -31,13 +39,25 @@ export default function DetailCard({ data }) {
       </div>
 
       <div className='btn-group'>
-        <button className='btn-small' type='text'>
+        <button
+          className='btn-small'
+          type='text'
+          onClick={() => onHandleEditBtn(data?._id)}
+        >
           Edit
         </button>
-        <button className='btn-small' type='text'>
+        <button
+          className='btn-small'
+          type='text'
+          onClick={() => onHandleDeleteBtn()}
+        >
           Delete
         </button>
-        <button className='btn-small' type='text' onClick={onHandleBackBtn}>
+        <button
+          className='btn-small'
+          type='text'
+          onClick={() => onHandleBackBtn()}
+        >
           Back
         </button>
       </div>

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function WriteFrom({ author, email }) {
+export default function EditForm({ session, data }) {
   const router = useRouter();
 
   const [titleVal, setTitleVal] = useState("");
@@ -13,10 +13,13 @@ export default function WriteFrom({ author, email }) {
   const contentRef = useRef();
 
   useEffect(() => {
+    setTitleVal(data.title);
+    setContentVal(data.content);
     titleRef.current.focus();
   }, []);
 
-  const checkEmptyString = () => {
+  const onHandleSubmit = (e) => {
+    e.preventDefault();
     if (titleVal === "") {
       alert("제목을 입력해주세요.");
       titleRef.current.focus();
@@ -26,24 +29,21 @@ export default function WriteFrom({ author, email }) {
       contentRef.current.focus();
       return;
     }
-  };
 
-  const onHandleSubmit = (e) => {
-    e.preventDefault();
-    checkEmptyString();
-
-    fetch("/api/write/insert", {
-      method: "POST",
+    fetch("/api/edit/update", {
+      method: "PUT",
       body: JSON.stringify({
+        _id: data._id,
         title: titleVal,
         content: contentVal,
-        author: author,
-        email: email,
+        email: data.email,
+        role: session.user?.role,
       }),
     })
-      .then(() => {
-        alert("글 등록이 완료되었습니다.");
-        router.push("/notice");
+      .then((res) => res.json())
+      .then((res) => {
+        alert(res.data);
+        res.success === true && router.push("/notice");
       })
       .catch((err) => console.error(err));
   };
@@ -51,10 +51,13 @@ export default function WriteFrom({ author, email }) {
   return (
     <form onSubmit={onHandleSubmit}>
       <div>
+        <label htmlFor='_id'>_id</label>
+        <input id='_id' defaultValue={data._id} />
+      </div>
+      <div>
         <label htmlFor='title'>Title</label>
         <input
           id='title'
-          type='text'
           value={titleVal}
           ref={titleRef}
           onChange={(e) => setTitleVal(e.target.value)}
@@ -64,7 +67,6 @@ export default function WriteFrom({ author, email }) {
         <label htmlFor='content'>Content</label>
         <textarea
           id='content'
-          type='text'
           value={contentVal}
           ref={contentRef}
           onChange={(e) => setContentVal(e.target.value)}

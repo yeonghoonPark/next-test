@@ -1,4 +1,4 @@
-import WriteFrom from "./WriteFrom";
+import WriteForm from "./WriteForm";
 
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
@@ -11,7 +11,7 @@ export default async function WritePage() {
     return (
       <div className='container write-page'>
         <h1 className='page-title'>Write</h1>
-        <WriteFrom author={session.user.name} email={session.user.email} />
+        <WriteForm author={session.user.name} email={session.user.email} />
       </div>
     );
   } else {
