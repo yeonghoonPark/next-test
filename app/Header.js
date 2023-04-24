@@ -12,7 +12,7 @@ export default async function Header() {
       <nav>
         <div className='left-menu'>
           <LinkBtn href={"/"}>Logo</LinkBtn>
-          <LinkBtn href={"/"}>Notice</LinkBtn>
+          <LinkBtn href={"/notice"}>Notice</LinkBtn>
           {session && <LinkBtn href={"/write"}>Write</LinkBtn>}
         </div>
         <div className='right-menu'>

@@ -43,7 +43,7 @@ export default function WriteFrom({ author, email }) {
     })
       .then(() => {
         alert("글 등록이 완료되었습니다.");
-        router.push("/");
+        router.push("/notice");
       })
       .catch((err) => console.error(err));
   };
