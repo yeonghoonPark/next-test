@@ -28,7 +28,7 @@ export default function WriteForm({ author, email }) {
       return;
     }
 
-    fetch("/api/write/insert", {
+    fetch("/api/notice/write/insert", {
       method: "POST",
       body: JSON.stringify({
         title: titleVal,

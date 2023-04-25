@@ -16,6 +16,9 @@ export default async function Header() {
           {session && <LinkBtn href={"/write"}>Write</LinkBtn>}
         </div>
         <div className='right-menu'>
+          {session && (
+            <span style={{ marginRight: "1rem" }}>{session.user.email}</span>
+          )}
           <SignBtn session={session} />
           <LinkBtn href='/signup'>SignUp</LinkBtn>
         </div>

@@ -2,15 +2,35 @@
 
 import { useRouter } from "next/navigation";
 
-export default function DetailCard({ data }) {
+export default function DetailCard({ data, session }) {
   const router = useRouter();
 
   const onHandleEditBtn = (_id) => {
     router.push(`/edit/${_id}`);
   };
 
-  const onHandleDeleteBtn = () => {
-    console.log("[onHandleDeleteBtn]");
+  const onHandleDeleteBtn = async (_id) => {
+    const question = confirm(
+      "한번 삭제한 자료는 복구 할 수 없습니다, 그래도 삭제하시겠습니까?",
+    );
+    if (question) {
+      try {
+        const res = await fetch("/api/notice/delete", {
+          method: "DELETE",
+          body: JSON.stringify({
+            _id: _id,
+            email: data?.email,
+            role: session.user?.role,
+          }),
+        });
+
+        const json = await res.json();
+        alert(json.data);
+        json.success === true && router.push("/notice");
+      } catch (err) {
+        console.error(err);
+      }
+    }
   };
 
   const onHandleBackBtn = () => {
@@ -49,7 +69,7 @@ export default function DetailCard({ data }) {
         <button
           className='btn-small'
           type='text'
-          onClick={() => onHandleDeleteBtn()}
+          onClick={() => onHandleDeleteBtn(data?._id)}
         >
           Delete
         </button>

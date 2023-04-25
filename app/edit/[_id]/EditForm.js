@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function EditForm({ session, data }) {
+export default function EditForm({ data, session }) {
   const router = useRouter();
 
   const [titleVal, setTitleVal] = useState("");
@@ -30,13 +30,13 @@ export default function EditForm({ session, data }) {
       return;
     }
 
-    fetch("/api/edit/update", {
+    fetch("/api/notice/edit/update", {
       method: "PUT",
       body: JSON.stringify({
-        _id: data._id,
+        _id: data?._id,
         title: titleVal,
         content: contentVal,
-        email: data.email,
+        email: data?.email,
         role: session.user?.role,
       }),
     })
