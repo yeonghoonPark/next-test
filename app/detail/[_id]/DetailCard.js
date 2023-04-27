@@ -20,7 +20,7 @@ export default function DetailCard({ data, session }) {
           body: JSON.stringify({
             _id: _id,
             email: data?.email,
-            role: session.user?.role,
+            role: session?.user?.role,
           }),
         });
 
@@ -59,20 +59,25 @@ export default function DetailCard({ data, session }) {
       </div>
 
       <div className='btn-group'>
-        <button
-          className='btn-small'
-          type='text'
-          onClick={() => onHandleEditBtn(data?._id)}
-        >
-          Edit
-        </button>
-        <button
-          className='btn-small'
-          type='text'
-          onClick={() => onHandleDeleteBtn(data?._id)}
-        >
-          Delete
-        </button>
+        {session.user.email === data.email && (
+          <>
+            <button
+              className='btn-small'
+              type='text'
+              onClick={() => onHandleEditBtn(data?._id)}
+            >
+              Edit
+            </button>
+            <button
+              className='btn-small'
+              type='text'
+              onClick={() => onHandleDeleteBtn(data?._id)}
+            >
+              Delete
+            </button>
+          </>
+        )}
+
         <button
           className='btn-small'
           type='text'

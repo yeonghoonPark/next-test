@@ -14,6 +14,7 @@ export default async function Header() {
           <LinkBtn href={"/"}>Logo</LinkBtn>
           <LinkBtn href={"/notice"}>Notice</LinkBtn>
           {session && <LinkBtn href={"/write"}>Write</LinkBtn>}
+          <LinkBtn href={"/product"}>Product</LinkBtn>
         </div>
         <div className='right-menu'>
           {session && (

@@ -37,7 +37,7 @@ export default function EditForm({ data, session }) {
         title: titleVal,
         content: contentVal,
         email: data?.email,
-        role: session.user?.role,
+        role: session?.user?.role,
       }),
     })
       .then((res) => res.json())
