@@ -36,7 +36,7 @@ export default function ProductCard() {
             <p>{cV.price} 원</p>
           </div>
           <div>
-            <img src={`/images/product_${cV.product_num}.jpg`} alt={cV.name} />
+            <img src={cV.image_src} alt={cV.name} />
           </div>
         </div>
       );

@@ -59,7 +59,7 @@ export default function DetailCard({ data, session }) {
       </div>
 
       <div className='btn-group'>
-        {session.user.email === data.email && (
+        {session?.user.email === data.email && (
           <>
             <button
               className='btn-small'

@@ -4,7 +4,7 @@ export default function ProductDetailCard({ data }) {
   return (
     <div className='card'>
       <div>
-        <img src={`/images/product_${data.product_num}.jpg`} alt={data.name} />
+        <img src={data.image_src} alt={data.name} />
       </div>
 
       <div>
