@@ -1,8 +1,6 @@
 "use client";
 
-export default function Error({ error, reset }) {
-  console.log(error, "에러");
-  console.log(reset, "리셋");
+export default function Error({ reset }) {
   return (
     <div className='error-page'>
       <h3 className='page-title'>
