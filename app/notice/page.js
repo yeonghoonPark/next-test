@@ -3,7 +3,11 @@ import NoticeCard from "./NoticeCard";
 
 export default async function NoticePage() {
   const db = (await connectDB).db("next-test");
-  const data = await db.collection("notice").find().toArray();
+  let data = await db.collection("notice").find().toArray();
+  data = data.map((cV) => {
+    cV._id = cV._id.toString();
+    return cV;
+  });
 
   return (
     <div className='container notice-page'>

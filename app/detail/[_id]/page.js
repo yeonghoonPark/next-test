@@ -11,6 +11,7 @@ export default async function DetailPage(props) {
   const data = await db
     .collection("notice")
     .findOne({ _id: new ObjectId(props.params._id) });
+  data._id = data._id.toString();
 
   return (
     <div className='container detail-page'>

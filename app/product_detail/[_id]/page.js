@@ -4,11 +4,13 @@ import ProductDetailCard from "./ProductDetailCard";
 
 export default async function ProductDetail(props) {
   const db = (await connectDB).db("next-test");
+
   const data = await db
     .collection("product")
     .findOne({ _id: new ObjectId(props.params._id) });
+  data._id = data._id.toString();
 
-  console.log(data, "데이터");
+  // console.log(data, "데이터");
 
   return (
     <div className='container product_detail-page'>
