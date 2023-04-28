@@ -3,16 +3,19 @@
 // import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import LoadingPage from "../loading";
 
 export default function ProductCard() {
   const router = useRouter();
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getProducts = async () => {
     try {
       const res = await fetch("/api/product/get", { method: "GET" });
       const json = await res.json();
       setProducts(json.data);
+      setIsLoading(true);
     } catch (err) {
       console.error(err);
     }
@@ -43,5 +46,5 @@ export default function ProductCard() {
     });
   };
 
-  return <>{renderHTML()}</>;
+  return !isLoading ? <LoadingPage /> : <>{renderHTML()}</>;
 }
